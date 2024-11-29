@@ -97,70 +97,69 @@ if page == "Board":
         elif st.session_state.board_type == "Side Board":
             board_key = "SIDE_BOARD"
 
-        provider_counts = (
-            filtered_data.groupby("PROVIDER")[board_key].sum().to_dict()
-        )
+    # Define provider counts (example counts)
     provider_counts = {
-    "Dialog": 50,
-    "Mobitel": 30,
-    "Hutch": 20,
-    "Airtel": 10,
-    "Non Dialog": 40,
-}
+        "Dialog": 50,
+        "Mobitel": 30,
+        "Hutch": 20,
+        "Airtel": 10,
+        "Non Dialog": 40,
+    }
 
-# Define colors for each provider
-provider_colors = {
-    "Dialog": "#FF0000",  # Red
-    "Mobitel": "#008000",  # Green
-    "Hutch": "#FFA500",  # Orange
-    "Airtel": "#FF0000",  # Red
-    "Non Dialog": "#808080",  # Grey
-}
+    # Define colors for each provider
+    provider_colors = {
+        "Dialog": "#FF0000",  # Red
+        "Mobitel": "#008000",  # Green
+        "Hutch": "#FFA500",  # Orange
+        "Airtel": "#FF0000",  # Red
+        "Non Dialog": "#808080",  # Grey
+    }
 
-# Create the UI
-st.title("Provider Counts")
+    # Create the UI
+    st.title("Provider Counts")
 
-# Iterate through the providers and display styled buttons with counts
-for provider, count in provider_counts.items():
-    col1, col2 = st.columns([2, 1])  # Two-column layout
-    with col1:
-        # Styled button for the provider
-        with stylable_container(
-            key=provider,
-            css_styles=f"""
-                button {{
-                    background-color: {provider_colors[provider]};
-                    color: white;
-                    width: 100%;
-                    height: 50px;
-                    border: none;
-                    font-size: 18px;
-                    font-weight: bold;
-                    text-align: center;
-                }}
-            """
-        ):
-            st.button(provider, key=f"{provider}_button")
-    with col2:
-        # Count display
-        st.markdown(
-            f"""
-            <div style="background-color: #F5F5F5; 
-                        text-align: center; 
-                        font-size: 18px; 
-                        padding: 10px; 
-                        border-radius: 5px;">
-                {count}
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-    # Display provider counts dynamically or use placeholder if no data
-    if provider_counts:
-        for provider, count in provider_counts.items():
-            st.write(f"{provider} Board Count: {count}")
-    else:
-        st.write("No board data available.")
+    # Iterate through the providers and display styled buttons with counts
+    for provider, count in provider_counts.items():
+        col1, col2 = st.columns([2, 1])  # Two-column layout
+        with col1:
+            # Styled button for the provider
+            with stylable_container(
+                key=provider,
+                css_styles=f"""
+                    button {{
+                        background-color: {provider_colors[provider]};
+                        color: white;
+                        width: 100%;
+                        height: 50px;
+                        border: none;
+                        font-size: 18px;
+                        font-weight: bold;
+                        text-align: center;
+                    }}
+                """
+            ):
+                st.button(provider, key=f"{provider}_button")
+        with col2:
+            # Count display
+            st.markdown(
+                f"""
+                <div style="background-color: #F5F5F5; 
+                            text-align: center; 
+                            font-size: 18px; 
+                            padding: 10px; 
+                            border-radius: 5px;">
+                    {count}
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+            # Display provider counts dynamically or use placeholder if no data
+        if provider_counts:
+            for provider, count in provider_counts.items():
+                st.write(f"{provider} Board Count: {count}")
+        else:
+            st.write("No board data available.")
 
 
 # POSM View
