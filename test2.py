@@ -160,3 +160,35 @@ if page == "Board":
 # POSM View
 elif page == "POSM":
     st.title("POSM View")
+
+
+    # Provider percentages
+    provider_percentages = {
+        "Dialog": {"value": 60, "color": "red"},
+        "Mobitel": {"value": 40, "color": "green"},
+        "Hutch": {"value": 20, "color": "orange"},
+        "Airtel": {"value": 35, "color": "red"},
+    }
+
+    st.title("Provider Percentages")
+
+    # Function to create a horizontal bar for each provider
+    def create_percentage_bar(provider, percentage, color):
+        return f"""
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <div style="width: 100px; font-weight: bold;">{provider}</div>
+            <div style="background-color: #f0f0f0; width: 300px; height: 20px; border-radius: 5px; overflow: hidden; margin-left: 10px;">
+                <div style="background-color: {color}; width: {percentage}%; height: 100%; text-align: right; color: white; padding-right: 5px; font-weight: bold;">
+                    {percentage}%
+                </div>
+            </div>
+        </div>
+        """
+
+    # Generate bars for all providers
+    bars_html = ""
+    for provider, details in provider_percentages.items():
+        bars_html += create_percentage_bar(provider, details["value"], details["color"])
+
+    # Render the bars using markdown
+    st.markdown(bars_html, unsafe_allow_html=True)
