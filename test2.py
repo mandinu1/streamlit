@@ -99,7 +99,8 @@ if page == "Board":
 
 
 
-# Define provider counts (example counts)
+
+    # Define provider counts (example counts)
     provider_counts = {
         "Dialog": 50,
         "Mobitel": 30,
@@ -114,7 +115,7 @@ if page == "Board":
         "Mobitel": "#008000",  # Green
         "Hutch": "#FFA500",  # Orange
         "Airtel": "#FF0000",  # Red
-        "Non Dialog": "#808080",  # Grey for Non Dialog
+        "Non Dialog": "#808080",  # Gray
     }
 
     # Create the UI
@@ -122,25 +123,25 @@ if page == "Board":
 
     # Iterate through the providers and display styled buttons with counts
     for provider, count in provider_counts.items():
-        col1, col2 = st.columns([2, 1])  # Two-column layout
+        col1, col2 = st.columns([1, 1])  # Two-column layout
         with col1:
             # Styled button for the provider
             with stylable_container(
-                key=provider,
+                key=f"{provider}_container",  # Unique key for each provider
                 css_styles=f"""
                     button {{
                         background-color: {provider_colors[provider]};
+                        font-weight: bold;
                         color: black;
                         width: 100%;
                         height: 50px;
                         border: none;
                         font-size: 18px;
-                        font-weight: bold;
                         text-align: center;
                     }}
                 """
             ):
-                st.button(provider, key=f"{provider}_button")
+                st.button(provider, key=f"{provider}_button")  # Unique key for each button
         with col2:
             # Count display in bold black
             st.markdown(
@@ -157,6 +158,7 @@ if page == "Board":
                 """,
                 unsafe_allow_html=True,
             )
+
 
 
 
