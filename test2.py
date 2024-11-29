@@ -97,6 +97,7 @@ if page == "Board":
         elif st.session_state.board_type == "Side Board":
             board_key = "SIDE_BOARD"
 
+
     # Define provider counts (example counts)
     provider_counts = {
         "Dialog": 50,
@@ -147,8 +148,9 @@ if page == "Board":
                             text-align: center; 
                             font-size: 18px; 
                             padding: 10px; 
-                            border-radius: 5px;">
-                    {count}
+                            border-radius: 5px;
+                            color: black;">
+                    
                 </div>
                 """,
                 unsafe_allow_html=True,
