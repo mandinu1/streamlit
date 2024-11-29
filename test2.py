@@ -98,7 +98,8 @@ if page == "Board":
             board_key = "SIDE_BOARD"
 
 
-    # Define provider counts (example counts)
+
+# Define provider counts (example counts)
     provider_counts = {
         "Dialog": 50,
         "Mobitel": 30,
@@ -109,11 +110,11 @@ if page == "Board":
 
     # Define colors for each provider
     provider_colors = {
-        "Dialog": "#FF0000",  # Red
+        "Dialog": "#f56642",  # light Red
         "Mobitel": "#008000",  # Green
         "Hutch": "#FFA500",  # Orange
         "Airtel": "#FF0000",  # Red
-        "Non Dialog": "#808080",  # Grey
+        "Non Dialog": "#808080",  # Grey for Non Dialog
     }
 
     # Create the UI
@@ -129,7 +130,7 @@ if page == "Board":
                 css_styles=f"""
                     button {{
                         background-color: {provider_colors[provider]};
-                        color: white;
+                        color: black;
                         width: 100%;
                         height: 50px;
                         border: none;
@@ -141,27 +142,24 @@ if page == "Board":
             ):
                 st.button(provider, key=f"{provider}_button")
         with col2:
-            # Count display
+            # Count display in bold black
             st.markdown(
                 f"""
                 <div style="background-color: #F5F5F5; 
                             text-align: center; 
                             font-size: 18px; 
+                            font-weight: bold; 
+                            color: black; 
                             padding: 10px; 
-                            border-radius: 5px;
-                            color: black;">
-                    
+                            border-radius: 5px;">
+                    {count}
                 </div>
                 """,
                 unsafe_allow_html=True,
             )
 
-            # Display provider counts dynamically or use placeholder if no data
-        if provider_counts:
-            for provider, count in provider_counts.items():
-                st.write(f"{provider} Board Count: {count}")
-        else:
-            st.write("No board data available.")
+
+
 
 
 # POSM View
