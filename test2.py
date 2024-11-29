@@ -100,7 +100,22 @@ if page == "Board":
         provider_counts = (
             filtered_data.groupby("PROVIDER")[board_key].sum().to_dict()
         )
+    if 'count' not in st.session_state:
+        st.session_state.count = 0
 
+    # Create a text input box
+    item = st.text_input("Enter an item")
+
+    # Button to add the item
+    if st.button("Add Item"):
+        if item:  # Check if the input is not empty
+            st.session_state.count += 1
+            st.success(f"Item added! Total count: {st.session_state.count}")
+        else:
+            st.warning("Please enter an item before adding.")
+
+    # Display the current count
+    st.write(f"Total items: {st.session_state.count}")
     # Display provider counts dynamically or use placeholder if no data
     if provider_counts:
         for provider, count in provider_counts.items():
