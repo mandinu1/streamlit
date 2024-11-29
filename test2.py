@@ -76,14 +76,7 @@ if page == "Board":
             # Display Map
             st.header("Retailer Locations Map")
             m = folium.Map(location=[7.873054, 80.771797], zoom_start=7)  # Centered in Sri Lanka
-            folium.Marker([7.144840, 80.920700], popup="Victoria Randenigala", tooltip="Liberty Bell").add_to(m)
-            folium.Circle(
-                radius=100,
-                location=[7.544840, 81.920700],
-                popup="Liberty Bell",
-                color="crimson",
-                fill=True,
-            ).add_to(m)
+            folium.Marker([7.144840, 80.920700], popup=folium.Popup('<img src="https://upload.wikimedia.org/wikipedia/commons/9/90/VictoriaDam-SriLanka-April2011-1.jpg" width="200px">', max_width=300), tooltip="Liberty Bell").add_to(m)
             st_data = st_folium(m, width=1200, height=800)
     st.header("Provider Board Counts")
     provider_counts = {}
