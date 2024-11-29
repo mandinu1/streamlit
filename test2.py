@@ -100,22 +100,61 @@ if page == "Board":
         provider_counts = (
             filtered_data.groupby("PROVIDER")[board_key].sum().to_dict()
         )
-    if 'count' not in st.session_state:
-        st.session_state.count = 0
+    provider_counts = {
+    "Dialog": 50,
+    "Mobitel": 30,
+    "Hutch": 20,
+    "Airtel": 10,
+    "Non Dialog": 40,
+}
 
-    # Create a text input box
-    item = st.text_input("Enter an item")
+# Define colors for each provider
+provider_colors = {
+    "Dialog": "#FF0000",  # Red
+    "Mobitel": "#008000",  # Green
+    "Hutch": "#FFA500",  # Orange
+    "Airtel": "#FF0000",  # Red
+    "Non Dialog": "#808080",  # Grey
+}
 
-    # Button to add the item
-    if st.button("Add Item"):
-        if item:  # Check if the input is not empty
-            st.session_state.count += 1
-            st.success(f"Item added! Total count: {st.session_state.count}")
-        else:
-            st.warning("Please enter an item before adding.")
+# Create the UI
+st.title("Provider Counts")
 
-    # Display the current count
-    st.write(f"Total items: {st.session_state.count}")
+# Iterate through the providers and display styled buttons with counts
+for provider, count in provider_counts.items():
+    col1, col2 = st.columns([2, 1])  # Two-column layout
+    with col1:
+        # Styled button for the provider
+        with stylable_container(
+            key=provider,
+            css_styles=f"""
+                button {{
+                    background-color: {provider_colors[provider]};
+                    color: white;
+                    width: 100%;
+                    height: 50px;
+                    border: none;
+                    font-size: 18px;
+                    font-weight: bold;
+                    text-align: center;
+                }}
+            """
+        ):
+            st.button(provider, key=f"{provider}_button")
+    with col2:
+        # Count display
+        st.markdown(
+            f"""
+            <div style="background-color: #F5F5F5; 
+                        text-align: center; 
+                        font-size: 18px; 
+                        padding: 10px; 
+                        border-radius: 5px;">
+                {count}
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
     # Display provider counts dynamically or use placeholder if no data
     if provider_counts:
         for provider, count in provider_counts.items():
